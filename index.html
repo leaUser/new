@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>טיימר</title>
+  
+  <!-- הוספת הגופן -->
+  <link href="https://fonts.cdnfonts.com/css/ploni" rel="stylesheet">
+
+  <style>
+    body {
+      background-color: #090a1f; /* טורקיז */
+      font-family: 'PloniMLv2AAA-Regular',sans-serif; /* הגדרת הגופן */
+      color: white;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+    }
+
+    .countdown-container {
+      max-width: 800px;
+    }
+
+    .animated-title {
+        font-family: 'PloniMLv2AAA-Bold',sans-serif;
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: rgb(176, 176, 176);
+      animation: moveTitle 5s linear infinite;
+    }
+
+    .countdown {
+      display: flex;
+      justify-content: space-around;
+      margin: 20px 0;
+    }
+
+    .countdown div {
+      text-align: center;
+    }
+
+    .countdown h1 {
+        font-family: 'PloniMLv2AAA-Bold',sans-serif;
+      font-size: 5.2rem;
+      font-weight: bold;
+    /* גופן דרמטי */
+      color: white;
+    }
+
+    .countdown p {
+      font-size: 1.2rem;
+      color: rgb(230, 105, 105);
+    }
+    #do {
+        color: rgb(235, 151, 151);
+        animation: moveDescription 5s linear infinite;
+    }
+    .description {
+      font-size: 1.5rem;
+      line-height: 1.5;
+      margin-top: 20px;
+      color: rgb(255, 255, 255);
+    }
+
+    @keyframes moveDescription {
+      0% {
+        transform: translateX(0);
+      }
+      20% {
+        transform: translateX(5px);
+      }
+      80% {
+        transform: translateX(-5px);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="countdown-container">
+    <h1 class="animated-title">
+        --- שלוש ארבע ו
+      <br>
+      נשארו עוד
+    </h1>
+    <div class="countdown">
+      <div>
+        <h1 id="days">00</h1>
+        <p>ימים</p>
+      </div>
+      <div>
+        <h1 id="hours">00</h1>
+        <p>שעות</p>
+      </div>
+      <div>
+        <h1 id="minutes">00</h1>
+        <p>דקות</p>
+      </div>
+      <div>
+        <h1 id="seconds">00</h1>
+        <p>שניות</p>
+      </div>
+    </div>
+    <h2 class="description">
+        ! להגשת חומרים לתחרות הגדולה 
+      <br>
+      <div id="do">
+      <span>מחר יום חמישי עד השעה 16:00</span>
+      <br>
+      כיתה שאספה את כמות החומרים הגדולה ביותר 
+      <br>
+      זוכה ומכניסים את שמות כל בנות הכיתה לתפילה אצל אחד מגדולי ישראל 
+      <br>
+      לזכות ביראת שמים!
+    </h2></div>
+  </div>
+  <script>
+    const countdown = () => {
+      const targetDate = new Date();
+      
+      // חישוב התאריך של יום ראשון הבא
+      targetDate.setDate(targetDate.getDate() + (7 - targetDate.getDay()) % 7); // יום ראשון הבא
+      targetDate.setHours(16, 0, 0, 0); // עד השעה 16:00
+
+      const now = new Date();
+      const timeDiff = targetDate - now;
+
+      if (timeDiff >= 0) {
+        const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+        document.getElementById('days').textContent = days.toString().padStart(2, '0');
+        document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+        document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+        document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+      }
+    };
+
+    // עדכון כל שנייה
+    setInterval(countdown, 1000);
+    countdown();
+  </script>
+</body>
+</html>
